@@ -10,7 +10,12 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/eslint-module", "@nuxtjs/apollo"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/eslint-module",
+    "@nuxtjs/apollo",
+    "@nuxt/image",
+  ],
   css: ["~/assets/css/globals.css"],
   apollo: {
     clients: {
