@@ -1,9 +1,9 @@
 import * as THREE from "three";
-import { ICard as CardType } from "./types";
+import type { ICard as CardType } from "./types";
 
-export default const initSprites = (
+export default function initSprites(
   addressHashMap: Map<string, CardType>,
-): Map<string, THREE.Sprite> => {
+): Map<string, THREE.Sprite> {
   const acc = Array.from(addressHashMap.entries()).reduce(
     (acc, [key, value]) => {
       let texture: THREE.Texture;
@@ -33,4 +33,4 @@ export default const initSprites = (
   }
 
   return acc;
-};
+}

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import type { ICard as CardType } from "#imports";
 
 export const gAttestations = useState<Attestation[] | null>(
   "attestations",
@@ -10,4 +11,9 @@ export const gSpriteCache = useState<Map<string, THREE.Sprite>>(
   () => {
     return new Map<string, THREE.Sprite>();
   },
+);
+
+export const gAccounts = useState<Map<EthereumAddress, CardType> | null>(
+  "accounts",
+  () => null,
 );
