@@ -31,11 +31,11 @@ const fetchAttestations = async (
 export default {
   async mounted() {
     const g = ForceGraph3D()(this.$refs.graph as HTMLElement);
-    const data = await fetchAttestations("3");
-    if (!data) {
+    gAttestations.value = await fetchAttestations("3");
+    if (!gAttestations.value) {
       return;
     }
-    const gData = buildGraph(data);
+    const gData = buildGraph(gAttestations.value);
 
     g.graphData(gData);
     g.linkWidth(0.2);
