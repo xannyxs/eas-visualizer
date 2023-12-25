@@ -1,26 +1,23 @@
 <script lang="ts">
 import ForceGraph3D from "3d-force-graph";
-import { c_ATTESTER, c_QUERY, c_GQL_VARIABLES } from "~/CONFIG";
+import { c_Query, c_Gql_variables } from "~/CONFIG";
 
-const fetchAttestations = async (round: string): Promise<Attestation[]> => {
-  const query = gql`
-    query Query($where: AttestationWhereInput) {
-      attestations(where: $where) {
-        attester
-        recipient
-        decodedDataJson
-        timeCreated
-      }
-    }
-  `;
+const fetchAttestations = async (
+  round: string,
+): Promise<Attestation[] | null> => {
+  const { data, error } = await useAsyncQuery<AttestationData>(
+    gql`
+      ${c_Query}
+    `,
+    c_Gql_variables,
+  );
 
-  console.log("hi");
-  const { data } = await useAsyncQuery(query);
-  console.log(data);
-  console.log("hello");
+  if (!data.value?.attestations) {
+    console.error("Error in Getting Attestations: ", error);
+    return null;
+  }
 
-  return data.attestations
-    .filter((attestation: Attestation) => attestation.attester === c_ATTESTER)
+  return data.value.attestations
     .map((attestation: any) => ({
       ...attestation,
       decodedDataJson: JSON.parse(attestation.decodedDataJson),
@@ -34,18 +31,12 @@ const fetchAttestations = async (round: string): Promise<Attestation[]> => {
 export default {
   async mounted() {
     const g = ForceGraph3D()(this.$refs.graph as HTMLElement);
-    const N = 300;
-    const gData = {
-      nodes: [...Array(N).keys()].map((i) => ({ id: i })),
-      links: [...Array(N).keys()]
-        .filter((id) => id)
-        .map((id) => ({
-          source: id,
-          target: Math.round(Math.random() * (id - 1)),
-        })),
-    };
+    const data = await fetchAttestations("3");
+    if (!data) {
+      return;
+    }
+    const gData = buildGraph(data);
 
-    fetchAttestations("3");
     g.graphData(gData);
     g.linkWidth(0.2);
     g.linkOpacity(0.5);

@@ -21,12 +21,15 @@ export interface DecodedDataJsonItem {
   type: string;
   value: DecodedDataJsonItemValue;
 }
-
 export interface Attestation {
   __typename: "Attestation";
   attester: EthereumAddress;
   recipient: EthereumAddress;
   decodedDataJson: DecodedDataJsonItem[];
+}
+
+export interface AttestationData {
+  attestations: Attestation[];
 }
 
 export interface IGraph {
