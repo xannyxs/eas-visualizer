@@ -10,11 +10,17 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
+  routeRules: {
+    // "/": { isr: true },
+    "/api/**": { cors: true },
+  },
   modules: [
+    "@nuxt/devtools",
     "@nuxtjs/eslint-module",
     "@nuxtjs/apollo",
     "@nuxt/image",
     "@nuxt/ui",
+    "nuxt-security",
   ],
   css: ["~/assets/css/globals.css"],
   apollo: {
@@ -27,5 +33,21 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
     strict: true,
+  },
+  runtimeConfig: {
+    OPENSEA_API: process.env.NUXT_OPENSEA_API,
+  },
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        "img-src": [
+          "'self'",
+          "data:",
+          "https://storageapi.fleek.one",
+          "https://img.logoipsum.com",
+        ],
+      },
+      crossOriginResourcePolicy: "cross-origin",
+    },
   },
 });

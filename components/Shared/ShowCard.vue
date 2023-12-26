@@ -1,10 +1,5 @@
 <template>
-  <div class="p-2 h-full bg-white">
-    <div class="flex">
-      <button class="p-3 text-red-500">
-        <X />
-      </button>
-    </div>
+  <div class="py-4 px-2 h-full bg-white">
     <ProfilePicture :url="cardInfo.imageUrl" />
     <EnsBar
       object-name="Current ENS address"
@@ -23,17 +18,17 @@
 </template>
 
 <script setup lang="ts">
-import { X } from "lucide-vue-next";
 import type { PropType } from "vue";
 import type { ICard } from "#imports";
 import ProfilePicture from "~/components/ShowCardComponents/ProfilePicture";
 import EnsBar from "~/components/ShowCardComponents/EnsBar";
 import InfoBar from "~/components/ShowCardComponents/InfoBar";
 
-defineProps({
+const props = defineProps({
   cardInfo: {
     type: Object as PropType<ICard>,
     required: true,
   },
 });
+console.log(props.cardInfo.imageUrl);
 </script>

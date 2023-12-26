@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <UModal class="z-20" v-model="isOpen">
+  <UModal v-model="isOpen" class="z-20">
     <ShowCard :card-info="card" />
   </UModal>
 </template>
@@ -61,9 +61,4 @@ defineProps({
   },
   onIconClick: { type: Function, required: true },
 });
-
-const handleCardClick = () => {
-  isOpen.value = !isOpen.value;
-  console.log(isOpen.value);
-};
 </script>
