@@ -1,64 +1,70 @@
 <template>
-  <div class="flex m-2 transition-all cursor-pointer items-center">
-    <div
-      class="shadow-black bg-gray-200 rounded-l-md flex items-center hover:bg-red-100 hover:shadow-md transition-all w-full"
-      role="button"
-      :aria-label="`Details for ${card.currentAddress}`"
-      tabindex="0"
-      @click="handleCardClick"
-    >
-      <NuxtImg
-        :src="image"
-        :alt="`${card.currentAddress} Avatar`"
-        class="rounded-l-md"
-        :width="dimensions"
-        :height="dimensions"
-      />
-      <div
-        class="flex-grow border-l-2 pl-3 pr-3 flex flex-col justify-center truncate"
-      >
-        <h2 class="text-md font-semibold truncate">
-          {{
-            card.ens
-              ? `ENS Address: ${card.ens}`
-              : `Address: ${card.currentAddress}`
-          }}
-        </h2>
-        <p class="text-gray-500 text-base truncate">
-          Referred By: {{ card.referredBy }}
-        </p>
-      </div>
-    </div>
+  <div
+    class="py-1 bg-gray-100 rounded-md transition-all cursor-pointer hover:bg-red-100 shadow-black"
+    @click="handleCardClick"
+  >
     <button
-      class="flex justify-center items-center ml-2 p-2 pt-4 pb-4 bg-gray-200 rounded-r-md hover:bg-red-100 transition-all"
+      class="self-start p-2 mt-1 ml-2 bg-gray-200 rounded-md transition-all hover:bg-red-300"
       aria-label="Locate address on map"
-      @click="() => onIconClick"
+      @click.stop="() => onIconClick"
     >
       <LocateFixed :size="25" />
     </button>
+    <div class="p-2 photo-wrapper">
+      <NuxtImg
+        :src="image"
+        :alt="`${card.currentAddress} Avatar`"
+        class="mx-auto rounded-full"
+        :width="dimensions"
+        :height="dimensions"
+      />
+    </div>
+    <div class="px-2">
+      <h3 class="font-semibold leading-8 text-center text-gray-900 text-md">
+        <template v-if="card.ens">
+          {{ card.ens }}
+        </template>
+        <template v-else>
+          <p class="truncate">{{ card.currentAddress }}</p>
+        </template>
+      </h3>
+      <div class="flex flex-col my-3 text-sm">
+        <div class="truncate">
+          <span class="font-bold">Referred:&nbsp;</span>
+          <span class="truncate">{{ card.referredBy }}</span>
+        </div>
+        <div>
+          <span class="font-bold">Referred Method:&nbsp;</span>
+          <span>{{ card.referredMethod }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { PropType } from "vue";
 import { LocateFixed } from "lucide-vue-next";
-import type { ICard } from "~/utils/types";
+import type { PropType } from "vue";
+import type { ICardProps as CardInfo } from "@/app/types";
 
-defineProps({
+const dimensions = 75;
+const props = defineProps({
   image: { type: String, required: true },
   card: {
-    type: Object as PropType<ICard>,
+    type: Object as PropType<CardInfo>,
     required: true,
   },
   onIconClick: { type: Function, required: true },
 });
 
-const dimensions = 55;
-//   const modalContext = inject('ModalContext');
+// const modalContext = inject("ModalContext"); // Assuming ModalContext is provided in a parent component or plugin
 
 const handleCardClick = () => {
   // if (modalContext && modalContext.openModal) {
-  //   modalContext.openModal(<ShowNodeCard cardInfo={props.card} />);
+  //   modalContext.openModal({
+  //     component: ShowNodeCard,
+  //     props: { cardInfo: props.card },
+  //   }); // Adjusted for Vue
   // }
 };
 </script>

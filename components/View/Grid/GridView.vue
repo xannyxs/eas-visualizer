@@ -7,14 +7,13 @@
     <div v-if="!gAccounts" class="grid grid-cols-2 gap-2 m-2">
       <GridCardSkeleton v-for="index in 16" :key="index" />
     </div>
-    <div v-else class="grid grid-cols-2 gap-2 m-2">
-      <div v-for="(value, key) in filteredCards" :key="key">
-        <GridCard
-          :image="value.imageUrl || makeBlockie(value.currentAddress)"
-          :card="value"
-          @icon-click="handleIconClick(value.currentAddress)"
-        />
-      </div>
+    <div v-else class="grid grid-cols-2 gap-2 m-2 w-full">
+      <GridCard
+        v-for="(value, key) in filteredCards()"
+        :image="value[1].imageUrl || makeBlockie(value[1].currentAddress)"
+        :card="value[1]"
+        @icon-click="() => handleIconClick(value[1].currentAddress)"
+      />
     </div>
   </div>
 </template>
@@ -28,8 +27,8 @@ import SearchBar from "~/components/Shared/SearchBar.vue";
 const useSearchQuery = useState<string>("seachQuery", () => "");
 
 const filteredCards = () => {
-  if (!gAccounts) return [];
-  return Array.from(gAccounts.entries()).filter(([key, value]) => {
+  if (!gAccounts?.value) return [];
+  return Array.from(gAccounts.value.entries()).filter(([key, value]) => {
     const searchLower = useSearchQuery.value.toLowerCase();
     return (
       value.currentAddress.toLowerCase().includes(searchLower) ||
