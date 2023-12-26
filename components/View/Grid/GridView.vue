@@ -7,7 +7,7 @@
     <div v-if="!gAccounts" class="grid grid-cols-2 gap-2 m-2">
       <GridCardSkeleton v-for="index in 16" :key="index" />
     </div>
-    <div v-else class="grid grid-cols-2 gap-2 m-2 w-full">
+    <div v-else class="grid grid-cols-2 gap-2 m-2">
       <GridCard
         v-for="(value, key) in filteredCards()"
         :image="value[1].imageUrl || makeBlockie(value[1].currentAddress)"
