@@ -40,15 +40,20 @@
       </div>
     </div>
   </div>
+  <UModal class="z-20" v-model="isOpen">
+    <ShowCard :card-info="card" />
+  </UModal>
 </template>
 
 <script setup lang="ts">
 import { LocateFixed } from "lucide-vue-next";
 import type { PropType } from "vue";
-import type { ICardProps as CardInfo } from "@/app/types";
+import type { ICard as CardInfo } from "#imports";
+import ShowCard from "~/components/Shared/ShowCard.vue";
 
 const dimensions = 75;
-const props = defineProps({
+const isOpen = ref(false);
+defineProps({
   image: { type: String, required: true },
   card: {
     type: Object as PropType<CardInfo>,
@@ -57,14 +62,8 @@ const props = defineProps({
   onIconClick: { type: Function, required: true },
 });
 
-// const modalContext = inject("ModalContext"); // Assuming ModalContext is provided in a parent component or plugin
-
 const handleCardClick = () => {
-  // if (modalContext && modalContext.openModal) {
-  //   modalContext.openModal({
-  //     component: ShowNodeCard,
-  //     props: { cardInfo: props.card },
-  //   }); // Adjusted for Vue
-  // }
+  isOpen.value = !isOpen.value;
+  console.log(isOpen.value);
 };
 </script>

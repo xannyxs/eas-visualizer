@@ -11,10 +11,10 @@ export default defineNuxtConfig({
   },
   ssr: false,
   modules: [
-    "@nuxtjs/tailwindcss",
     "@nuxtjs/eslint-module",
     "@nuxtjs/apollo",
     "@nuxt/image",
+    "@nuxt/ui",
   ],
   css: ["~/assets/css/globals.css"],
   apollo: {
