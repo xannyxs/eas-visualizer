@@ -1,4 +1,6 @@
 import type { ICard as CardType } from "./types";
+import { fetchImages } from "./fetch/fetchImages";
+import fetchEnsName from "./fetch/fetchEnsName";
 
 export default async function buildAccounts(
   attestations: Attestation[],
