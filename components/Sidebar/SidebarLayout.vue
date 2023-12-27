@@ -47,6 +47,7 @@
 
 <script setup lang="ts">
 import { Gem, LayoutGrid, Rows, Bug, Rocket } from "lucide-vue-next";
+import SideBar from "./SideBar.vue";
 import { ActiveView } from "~/utils/types";
 import SideBarItem from "~/components/Sidebar/SideBarItem.vue";
 import { gUseActiveView } from "~/composables/useSidebar";

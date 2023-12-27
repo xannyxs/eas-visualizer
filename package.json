@@ -34,8 +34,11 @@
     "@fontsource/league-spartan": "^5.0.18",
     "@nuxt/image": "^1.1.0",
     "@nuxt/ui": "^2.11.1",
+    "@use-wagmi/nuxt": "^1.1.8",
     "ethereum-blockies-base64": "^1.0.2",
     "lucide-vue-next": "^0.302.0",
-    "three": "^0.160.0"
+    "three": "^0.160.0",
+    "use-wagmi": "^0.4.9",
+    "viem": "^1.21.1"
   }
 }

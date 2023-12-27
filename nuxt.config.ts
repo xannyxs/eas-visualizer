@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   ssr: false,
   routeRules: {
-    // "/": { isr: true },
+    "/": { cors: true },
     "/api/**": { cors: true },
   },
   modules: [
@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/ui",
     "nuxt-security",
+    "@use-wagmi/nuxt",
   ],
   css: ["~/assets/css/globals.css"],
   apollo: {
@@ -37,6 +38,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       PUBLIC_OPENSEA_API: process.env.NUXT_PUBLIC_OPENSEA_API || "No-API",
+      PUBLIC_INFURA_URL: process.env.NUXT_PUBLIC_INFURA_URL || "No-URL",
+      PUBLIC_INFURA_API: process.env.NUXT_PUBLIC_INFURA_API || "No-API",
     },
   },
   security: {

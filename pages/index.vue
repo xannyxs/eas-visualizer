@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { gUseActiveView } from "~/composables/useSidebar";
 import GridView from "~/components/View/Grid/GridView.vue";
+import SideBarLayout from "~/components/Sidebar/SidebarLayout.vue";
 </script>
 
 <template>

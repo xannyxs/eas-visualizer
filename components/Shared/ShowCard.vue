@@ -7,7 +7,11 @@
       :ens="cardInfo.ens"
     />
     <template v-if="cardInfo.referredBy !== 'Optimism Foundation'">
-      <EnsBar object-name="Referred by" :address="cardInfo.referredBy" />
+      <EnsBar
+        object-name="Referred by"
+        :address="cardInfo.referredBy"
+        :ens="cardInfo.ens"
+      />
     </template>
     <InfoBar object-name="Referred method" :object="cardInfo.referredMethod" />
     <InfoBar

@@ -1,6 +1,6 @@
-import type { ICard as CardType } from "./types";
+import { fetchEnsName } from "@wagmi/core";
 import { fetchImages } from "./fetch/fetchImages";
-import fetchEnsName from "./fetch/fetchEnsName";
+import type { ICard as CardType } from "./types";
 
 export default async function buildAccounts(
   attestations: Attestation[],
@@ -14,11 +14,13 @@ export default async function buildAccounts(
     const imageUrl = await fetchImages(attestation.recipient);
 
     let ens: string | null;
-    if (process.env.NODE_ENV === "production") {
-      ens = await fetchEnsName(attestation.recipient);
-    } else {
-      ens = null;
-    }
+    // if (process.env.NODE_ENV === "production") {
+    ens = await fetchEnsName({ address: attestation.recipient }).catch(
+      () => null,
+    );
+    // } else {
+    //   ens = null;
+    // }
 
     return [
       attestation.recipient,

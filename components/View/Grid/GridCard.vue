@@ -61,4 +61,8 @@ defineProps({
   },
   onIconClick: { type: Function, required: true },
 });
+
+const handleCardClick = () => {
+  isOpen.value = !isOpen.value;
+};
 </script>
