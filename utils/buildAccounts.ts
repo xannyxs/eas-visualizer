@@ -13,7 +13,7 @@ export default async function buildAccounts(
     const retroPGFRound = Number(attestation.decodedDataJson[0].value.value);
     const imageUrl = await fetchImages(attestation.recipient);
 
-    let ens: string | null;
+    let ens: string | null = null;
     if (process.env.NODE_ENV === "production") {
       ens = await fetchEnsName({ address: attestation.recipient }).catch(
         () => null,

@@ -1,5 +1,24 @@
 export type EthereumAddress = `0x${string}`;
 
+export type NFT = {
+  identifier: string;
+  collection: string;
+  contract: string;
+  description: string;
+  image_url?: string;
+  is_disabled: boolean;
+  is_nsfw: boolean;
+  metadata_url: string;
+  name: string;
+  opensea_url: string;
+  token_standard: "erc721" | string;
+  updated_at: string;
+};
+
+export type OpenseaNFT = {
+  nfts: NFT[];
+};
+
 export interface ICard {
   currentAddress: EthereumAddress;
   referredBy: EthereumAddress | string;

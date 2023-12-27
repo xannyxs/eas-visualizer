@@ -1,3 +1,5 @@
+import { OpenseaNFT } from "../types";
+
 export async function fetchImages(address: EthereumAddress) {
   const config = useRuntimeConfig();
 
@@ -6,7 +8,7 @@ export async function fetchImages(address: EthereumAddress) {
     return null;
   }
 
-  const { data, error } = await useFetch(
+  const { data, error } = await useFetch<OpenseaNFT>(
     `https://api.opensea.io/v2/chain/optimism/account/${address}/nfts`,
     {
       headers: {
