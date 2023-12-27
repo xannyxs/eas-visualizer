@@ -2,7 +2,7 @@
 
 ## Overview
 
-Visualise the Optimism Citizens’ House like never before! This project uses the ThreeGraph module to create a 3D graph that helps you understand the relationships and pathways within the RetroPGF ecosystem. Explore, zoom, and highlight to your heart's content.
+Visualise your EAS Schema like never before! This project uses the ThreeGraph module to create a 3D graph that helps you understand the relationships and pathways within your EAS ecosystem. Explore, zoom, and highlight to your heart's content.
 
 ## Future Features
 
