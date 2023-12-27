@@ -14,13 +14,11 @@ export default async function buildAccounts(
     const imageUrl = await fetchImages(attestation.recipient);
 
     let ens: string | null;
-    // if (process.env.NODE_ENV === "production") {
-    ens = await fetchEnsName({ address: attestation.recipient }).catch(
-      () => null,
-    );
-    // } else {
-    //   ens = null;
-    // }
+    if (process.env.NODE_ENV === "production") {
+      ens = await fetchEnsName({ address: attestation.recipient }).catch(
+        () => null,
+      );
+    }
 
     return [
       attestation.recipient,
