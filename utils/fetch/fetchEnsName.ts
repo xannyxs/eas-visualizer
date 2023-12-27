@@ -1,4 +1,4 @@
-import type { EthereumAddress } from "./types";
+import type { EthereumAddress } from "~/utils/types";
 
 export default async function fetchEnsName(
   address: EthereumAddress,

@@ -1,9 +1,9 @@
-export const c_Schemaid =
+export const cSchemaid =
   "0xfdcfdad2dbe7489e0ce56b260348b7f14e8365a8a325aef9834818c00d46b31b";
-export const c_Attester = "0x621477dBA416E12df7FF0d48E14c4D20DC85D7D9";
-export const c_Client_uri = "https://optimism.easscan.org/graphql";
+export const cAttester = "0x621477dBA416E12df7FF0d48E14c4D20DC85D7D9";
+export const cClientUri = "https://optimism.easscan.org/graphql";
 
-export const c_Query = `
+export const cQuery = `
 query Attestations($where: AttestationWhereInput) {
   attestations(where: $where) {
       attester
@@ -13,12 +13,12 @@ query Attestations($where: AttestationWhereInput) {
 }
 `;
 
-export const c_Gql_variables = {
+export const cGqlVariables = {
   where: {
     AND: [
-      { schemaId: { equals: c_Schemaid } },
+      { schemaId: { equals: cSchemaid } },
       { revoked: { equals: false } },
-      { attester: { equals: c_Attester } },
+      { attester: { equals: cAttester } },
     ],
   },
 };

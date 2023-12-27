@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { c_Query, c_Gql_variables } from "~/CONFIG";
+import { cQuery, cGqlVariables } from "~/CONFIG";
 
 const fetchAttestations = async (
   round: number,
 ): Promise<Attestation[] | null> => {
   const { data, error } = await useAsyncQuery<AttestationData>(
     gql`
-      ${c_Query}
+      ${cQuery}
     `,
-    c_Gql_variables,
+    cGqlVariables,
   );
 
   if (!data.value?.attestations) {

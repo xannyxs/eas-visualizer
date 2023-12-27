@@ -6,7 +6,7 @@ import GridView from "~/components/View/Grid/GridView.vue";
 <template>
   <main class="flex">
     <div class="z-10">
-      <SidebarLayout />
+      <SideBarLayout />
     </div>
 
     <div

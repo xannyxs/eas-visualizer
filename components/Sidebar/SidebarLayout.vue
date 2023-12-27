@@ -1,25 +1,25 @@
 <template>
   <div class="relative w-[1/4]">
-    <Sidebar>
-      <SidebarItem
+    <SideBar>
+      <SideBarItem
         :icon="LayoutGrid"
         text="Grid view"
         :active="gUseActiveView === ActiveView.Grid"
         @click="() => handleItemClick(ActiveView.Grid)"
       />
-      <SidebarItem
+      <SideBarItem
         :icon="Rows"
         text="List view"
         :active="gUseActiveView === ActiveView.List"
         @click="() => handleItemClick(ActiveView.List)"
       />
-      <SidebarItem
+      <SideBarItem
         :icon="Gem"
         text="Credits"
         :active="gUseActiveView === ActiveView.Credits"
         @click="() => handleItemClick(ActiveView.Credits)"
       />
-      <SidebarItem
+      <SideBarItem
         :icon="Bug"
         text="Report bug"
         :active="gUseActiveView === ActiveView.Bug"
@@ -30,7 +30,7 @@
           )
         "
       />
-      <SidebarItem
+      <SideBarItem
         :icon="Rocket"
         text="Feature request"
         :active="gUseActiveView === ActiveView.Feature"
@@ -41,14 +41,14 @@
           )
         "
       />
-    </Sidebar>
+    </SideBar>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Gem, LayoutGrid, Rows, Bug, Rocket } from "lucide-vue-next";
 import { ActiveView } from "~/utils/types";
-import SidebarItem from "~/components/Sidebar/SidebarItem.vue";
+import SideBarItem from "~/components/Sidebar/SideBarItem.vue";
 import { gUseActiveView } from "~/composables/useSidebar";
 
 const handleItemClick = (view: ActiveView) => {

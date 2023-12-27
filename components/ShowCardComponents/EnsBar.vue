@@ -20,12 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from "vue";
-import type { EthereumAddress } from "~/utils/types";
-
 defineProps({
   objectName: { type: String, required: true },
   address: { type: String as PropType<EthereumAddress>, required: true },
-  ens: String,
+  ens: { type: String, required: true },
 });
 </script>

@@ -1,4 +1,4 @@
-import { c_Client_uri } from "./CONFIG";
+import { cClientUri } from "./CONFIG";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: c_Client_uri,
+        httpEndpoint: cClientUri,
       },
     },
   },
