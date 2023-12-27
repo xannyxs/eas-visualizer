@@ -9,10 +9,11 @@
     </div>
     <div v-else class="grid grid-cols-2 gap-2 m-2">
       <GridCard
-        v-for="(value, key) in filteredCards()"
+        v-for="value in filteredCards()"
         :image="value[1].imageUrl || makeBlockie(value[1].currentAddress)"
         :card="value[1]"
         @icon-click="() => handleIconClick(value[1].currentAddress)"
+        :key="value[1].currentAddress"
       />
     </div>
   </div>
@@ -28,7 +29,7 @@ const useSearchQuery = useState<string>("seachQuery", () => "");
 
 const filteredCards = () => {
   if (!gAccounts?.value) return [];
-  return Array.from(gAccounts.value.entries()).filter(([key, value]) => {
+  return Array.from(gAccounts.value.entries()).filter(([_key, value]) => {
     const searchLower = useSearchQuery.value.toLowerCase();
     return (
       value.currentAddress.toLowerCase().includes(searchLower) ||

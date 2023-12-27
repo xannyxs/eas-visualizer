@@ -5,7 +5,6 @@ import {
   mainnet,
   configureChains,
 } from "use-wagmi";
-import { createPublicClient, http } from "viem";
 import { infuraProvider } from "@wagmi/core/providers/infura";
 import { InjectedConnector } from "@wagmi/core/connectors/injected";
 
