@@ -17,7 +17,7 @@ const getSprite = (node: any) => {
 };
 
 export default {
-  async mounted() {
+  mounted() {
     const g = ForceGraph3D()(this.$refs.graph as HTMLElement);
     if (!gAttestations.value) {
       return;

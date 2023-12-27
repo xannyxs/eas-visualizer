@@ -24,11 +24,10 @@ import ProfilePicture from "~/components/ShowCardComponents/ProfilePicture";
 import EnsBar from "~/components/ShowCardComponents/EnsBar";
 import InfoBar from "~/components/ShowCardComponents/InfoBar";
 
-const props = defineProps({
+defineProps({
   cardInfo: {
     type: Object as PropType<ICard>,
     required: true,
   },
 });
-console.log(props.cardInfo.imageUrl);
 </script>

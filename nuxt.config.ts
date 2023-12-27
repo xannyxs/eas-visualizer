@@ -35,7 +35,9 @@ export default defineNuxtConfig({
     strict: true,
   },
   runtimeConfig: {
-    OPENSEA_API: process.env.NUXT_OPENSEA_API,
+    public: {
+      PUBLIC_OPENSEA_API: process.env.NUXT_PUBLIC_OPENSEA_API || "No-API",
+    },
   },
   security: {
     headers: {
@@ -48,6 +50,7 @@ export default defineNuxtConfig({
         ],
       },
       crossOriginResourcePolicy: "cross-origin",
+      crossOriginEmbedderPolicy: "unsafe-none",
     },
   },
 });

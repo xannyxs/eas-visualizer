@@ -1,7 +1,7 @@
 <template>
-  <div v-if="url" class="flex w-full justify-center mb-4">
+  <div v-if="url" class="flex justify-center mb-4 w-full">
     <NuxtImg
-      class="rounded-full border-gray border-2"
+      class="rounded-full border-2 border-gray"
       :src="url"
       alt="Optimism NFT"
       :width="dimensions"
@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 defineProps({
-  url: String,
+  url: { type: String, required: true },
 });
 
 const dimensions = 150;

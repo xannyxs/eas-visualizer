@@ -1,14 +1,18 @@
 export async function fetchImages(address: EthereumAddress) {
+  const config = useRuntimeConfig();
+
   if (!address) {
     console.error("Missing the address");
     return null;
   }
 
   const { data, error } = await useFetch(
-    `/api/fetchImages?address=${address}`,
+    `https://api.opensea.io/v2/chain/optimism/account/${address}/nfts`,
     {
-      immediate: false,
-      lazy: true,
+      headers: {
+        accept: "application/json",
+        "x-api-key": config.public.PUBLIC_OPENSEA_API,
+      },
     },
   );
 

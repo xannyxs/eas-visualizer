@@ -6,14 +6,13 @@ export default function initSprites(
 ): Map<string, THREE.Sprite> {
   const acc = Array.from(addressHashMap.entries()).reduce(
     (acc, [key, value]) => {
-      let texture: THREE.Texture;
       const data = value.imageUrl ?? "";
 
       if (data === "") {
         return acc;
       }
 
-      texture = new THREE.TextureLoader().load(data);
+      const texture: THREE.Texture = new THREE.TextureLoader().load(data);
       const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
       const sprite = new THREE.Sprite(spriteMaterial);
       sprite.scale.set(8, 8, 0);
