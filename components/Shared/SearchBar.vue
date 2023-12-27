@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky top-0 mx-2 border-b border-gray-300 pt-4 pb-3 bg-white flex justify-between items-center"
+    class="flex sticky top-0 justify-between items-center pt-4 pb-3 mx-2 bg-white border-b border-gray-300"
   >
     <div class="text-3xl">{{ view }}</div>
     <div class="flex justify-end items-center bg-gray-200 rounded">
@@ -8,8 +8,7 @@
         aria-label="Search addresses"
         type="text"
         :placeholder="placeholder"
-        class="m-1 p-1 border border-gray-300 rounded transition-all"
-        @input="() => handleOnChange"
+        class="p-1 m-1 rounded border border-gray-300 transition-all"
       />
       <SearchIcon class="m-2" />
     </div>
@@ -20,11 +19,10 @@
 import { SearchIcon } from "lucide-vue-next";
 
 defineProps({
-  view: String,
+  view: { type: String, required: true },
   placeholder: {
     type: String,
     default: "Search an address...",
   },
-  handleOnChange: Function,
 });
 </script>
