@@ -10,10 +10,10 @@
     <div v-else class="grid grid-cols-2 gap-2 m-2">
       <GridCard
         v-for="value in filteredCards()"
+        :key="value[1].currentAddress"
         :image="value[1].imageUrl || makeBlockie(value[1].currentAddress)"
         :card="value[1]"
         @icon-click="() => handleIconClick(value[1].currentAddress)"
-        :key="value[1].currentAddress"
       />
     </div>
   </div>

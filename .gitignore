@@ -1,3 +1,6 @@
+# Nuxt
+.output/
+
 # Logs
 logs
 *.log
