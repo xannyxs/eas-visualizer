@@ -84,14 +84,16 @@ export default {
 
     const handleNodeClick = (node: any) => {
       const nodeData = gAccounts.value!.get(node.id);
-      if (nodeData) {
-        this.selectedCard! = nodeData;
-        this.isOpen = true;
+      if (!nodeData) {
+        return;
       }
+
+      this.selectedCard! = nodeData;
+      this.isOpen = true;
+      gSelectedNode.value = node;
 
       const distance = 40;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
-
       const newPos =
         node.x || node.y || node.z
           ? {
