@@ -17,14 +17,6 @@ export default {
     const isOpen = ref(false);
     const selectedCard = ref<ICard | null>(null);
 
-    const handleNodeClick = (node: any) => {
-      const nodeData = gAccounts.value!.get(node.id);
-      if (nodeData) {
-        selectedCard.value = nodeData;
-        isOpen.value = true;
-      }
-    };
-
     const getSprite = (node: any) => {
       let sprite = gSpriteCache.value.get(node.id);
       if (!sprite) {
@@ -39,7 +31,6 @@ export default {
     };
     return {
       getSprite,
-      handleNodeClick,
       isOpen,
       selectedCard,
     };
@@ -91,6 +82,28 @@ export default {
       highlightReferralChain(node);
     };
 
+    const handleNodeClick = (node: any) => {
+      const nodeData = gAccounts.value!.get(node.id);
+      if (nodeData) {
+        this.selectedCard! = nodeData;
+        this.isOpen = true;
+      }
+
+      const distance = 40;
+      const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+
+      const newPos =
+        node.x || node.y || node.z
+          ? {
+              x: node.x * distRatio,
+              y: node.y * distRatio,
+              z: node.z * distRatio,
+            }
+          : { x: 0, y: 0, z: distance };
+
+      g.cameraPosition(newPos, node, 3000);
+    };
+
     const g = ForceGraph3D()(this.$refs.graph as HTMLElement);
     if (!gAttestations.value) {
       return;
@@ -110,7 +123,7 @@ export default {
       highlightLinks.value.has(link) ? "red" : "lightblue",
     );
     g.nodeThreeObject((node: any) => this.getSprite(node));
-    g.onNodeClick(this.handleNodeClick);
+    g.onNodeClick(handleNodeClick);
     g.onNodeHover((node: any) => handleNodeHover(node, true));
   },
 };
