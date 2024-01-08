@@ -22,10 +22,6 @@ import SidebarLayout from "~/components/Sidebar/SidebarLayout.vue";
       <template v-if="gUseActiveView === ActiveView.List">
         <ListView />
       </template>
-      <template v-if="gUseActiveView === ActiveView.Credits">
-        <CreditsView />
-      </template>
-      -->
     </div>
     <div class="absolute">
       <ThreeGraph />
