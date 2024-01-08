@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { gUseActiveView } from "~/composables/useSidebar";
 import GridView from "~/components/View/Grid/GridView.vue";
+import ListView from "~/components/View/List/ListView.vue";
 import SidebarLayout from "~/components/Sidebar/SidebarLayout.vue";
 </script>
 
@@ -18,12 +19,13 @@ import SidebarLayout from "~/components/Sidebar/SidebarLayout.vue";
       <template v-if="gUseActiveView === ActiveView.Grid">
         <GridView />
       </template>
-      <!-- <template v-if="g_useActiveView === ActiveView.List">
+      <template v-if="gUseActiveView === ActiveView.List">
         <ListView />
       </template>
-      <template v-if="g_useActiveView === ActiveView.Credits">
+      <template v-if="gUseActiveView === ActiveView.Credits">
         <CreditsView />
-      </template> -->
+      </template>
+      -->
     </div>
     <div class="absolute">
       <ThreeGraph />
