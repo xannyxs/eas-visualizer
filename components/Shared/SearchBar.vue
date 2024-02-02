@@ -4,20 +4,18 @@
   >
     <div class="text-3xl">{{ view }}</div>
     <div class="flex justify-end items-center bg-gray-200 rounded">
-      <input
-        aria-label="Search addresses"
-        type="text"
-        :placeholder="placeholder"
-        class="p-1 m-1 rounded border border-gray-300 transition-all"
+      <UInput
+        icon="i-heroicons-magnifying-glass-20-solid"
+        color="white"
+        variant="outline"
+        placeholder="Search..."
+        trailing
       />
-      <SearchIcon class="m-2" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { SearchIcon } from "lucide-vue-next";
-
 defineProps({
   view: { type: String, required: true },
   placeholder: {
