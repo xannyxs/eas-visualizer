@@ -49,6 +49,8 @@ export default {
       highlightNodes.value.clear();
       highlightLinks.value.clear();
 
+      console.log(hover);
+
       const highlightReferralChain = (currentNode: any) => {
         if (!currentNode) return;
 
