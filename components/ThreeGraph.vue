@@ -10,14 +10,16 @@ import ForceGraph3D, { type ForceGraph3DInstance } from "3d-force-graph";
 import * as THREE from "three";
 import makeBlockie from "ethereum-blockies-base64";
 import ShowCard from "./Shared/ShowCard.vue";
+import initSprites from "~/utils/spriteCache";
 
 export default {
   components: { ShowCard },
-  setup() {
+  async setup() {
     const g = ref<ForceGraph3DInstance | null>(null);
     const gData = buildGraph(gAttestations.value!);
     const isOpen = ref(false);
     const selectedCard = ref<ICard | null>(null);
+    const spriteCache = await initSprites(gAccounts.value!);
 
     const handleNodeClick = (node: any) => {
       const nodeData = gAccounts.value!.get(node.id);
@@ -55,21 +57,9 @@ export default {
       },
     );
 
-    const getSprite = (node: any) => {
-      let sprite = gSpriteCache.value.get(node.id);
-      if (!sprite) {
-        const data = makeBlockie(node.id);
-        const texture = new THREE.TextureLoader().load(data);
-        const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
-        sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(8, 8, 0);
-        gSpriteCache.value.set(node.id, sprite);
-      }
-      return sprite as unknown as THREE.Object3D;
-    };
     return {
       handleNodeClick,
-      getSprite,
+      spriteCache,
       isOpen,
       selectedCard,
       gData,
@@ -86,6 +76,19 @@ export default {
         .linkWidth(g?.linkWidth())
         .linkDirectionalParticles(g?.linkDirectionalParticles());
     }
+
+    const getSprite = (node: any) => {
+      let sprite = this.spriteCache.get(node.id);
+      if (!sprite) {
+        const data = makeBlockie(node.id);
+        const texture = new THREE.TextureLoader().load(data);
+        const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+        sprite = new THREE.Sprite(spriteMaterial);
+        sprite.scale.set(8, 8, 0);
+        this.spriteCache.set(node.id, sprite);
+      }
+      return sprite;
+    };
 
     const handleNodeHover = (g: ForceGraph3DInstance, node: any) => {
       highlightNodes.value.clear();
@@ -138,7 +141,7 @@ export default {
     this.g?.linkColor((link) =>
       highlightLinks.value.has(link) ? "red" : "lightblue",
     );
-    this.g?.nodeThreeObject((node: any) => this.getSprite(node));
+    this.g?.nodeThreeObject((node: any) => getSprite(node));
     this.g?.onNodeClick(this.handleNodeClick);
     this.g?.onNodeHover((node: any) => handleNodeHover(this.g!, node));
   },
