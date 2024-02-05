@@ -77,6 +77,42 @@ export default {
         .linkDirectionalParticles(g?.linkDirectionalParticles());
     }
 
+    const handleNodeClick = (node: any) => {
+      const nodeData = gAccounts.value!.get(node.id);
+      if (!nodeData) {
+        return;
+      }
+
+      selectedCard!.value = nodeData;
+      isOpen.value = true;
+      gSelectedNode.value = node;
+
+      const distance = 40;
+      const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+      const newPos =
+        node.x || node.y || node.z
+          ? {
+              x: node.x * distRatio,
+              y: node.y * distRatio,
+              z: node.z * distRatio,
+            }
+          : { x: 0, y: 0, z: distance };
+
+      g.value?.cameraPosition(newPos, node, 3000);
+    };
+
+    watch(
+      () => gSelectedNode.value,
+      (newValue) => {
+        if (newValue) {
+          const node = gData.nodes.find((node) => node.id === newValue);
+          if (node) {
+            handleNodeClick(node);
+          }
+        }
+      },
+    );
+
     const getSprite = (node: any) => {
       let sprite = this.spriteCache.get(node.id);
       if (!sprite) {
