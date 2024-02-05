@@ -1,4 +1,4 @@
-import { OpenseaNFT } from "../types";
+import { type OpenseaNFT } from "../types";
 
 export async function fetchImages(address: EthereumAddress) {
   const config = useRuntimeConfig();
