@@ -34,10 +34,10 @@ export default {
       const newPos =
         node.x || node.y || node.z
           ? {
-            x: node.x * distRatio,
-            y: node.y * distRatio,
-            z: node.z * distRatio,
-          }
+              x: node.x * distRatio,
+              y: node.y * distRatio,
+              z: node.z * distRatio,
+            }
           : { x: 0, y: 0, z: distance };
 
       g.value?.cameraPosition(newPos, node, 3000);
