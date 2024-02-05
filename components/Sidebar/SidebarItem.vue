@@ -6,7 +6,7 @@
         : 'hover:bg-red-50 text-gray-600'
     }`"
   >
-    <icon />
+    <icon color="black" />
     <span
       :class="`overflow-hidden transition-all ${
         gUseExpanded ? 'w-52 ml-3' : 'w-0'
@@ -25,14 +25,9 @@
 <script setup lang="ts">
 import type { Icon } from "lucide-vue-next";
 
-withDefaults(
-  defineProps<{
-    icon: Icon;
-    text: String;
-    active?: boolean;
-  }>(),
-  {
-    active: false,
-  },
-);
+defineProps({
+  icon: { type: Function, required: true },
+  text: { type: String, required: true },
+  active: { type: Boolean, required: false, default: false },
+});
 </script>
