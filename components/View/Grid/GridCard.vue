@@ -6,7 +6,7 @@
     <button
       class="self-start p-2 mt-1 ml-2 bg-gray-200 rounded-md transition-all hover:bg-red-300"
       aria-label="Locate address on map"
-      @click.stop="() => onIconClick"
+      @click="handleIconClick(card.currentAddress)"
     >
       <LocateFixed :size="25" />
     </button>
@@ -61,6 +61,10 @@ defineProps({
   },
   onIconClick: { type: Function, required: true },
 });
+
+const handleIconClick = (nodeId: string) => {
+  gSelectedNode.value = nodeId;
+};
 
 const handleCardClick = () => {
   isOpen.value = !isOpen.value;
