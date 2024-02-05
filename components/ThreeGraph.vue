@@ -10,14 +10,72 @@ import ForceGraph3D, { type ForceGraph3DInstance } from "3d-force-graph";
 import * as THREE from "three";
 import makeBlockie from "ethereum-blockies-base64";
 import ShowCard from "./Shared/ShowCard.vue";
+import initSprites from "~/utils/spriteCache";
 
 export default {
   components: { ShowCard },
-  setup() {
+  async setup() {
     const g = ref<ForceGraph3DInstance | null>(null);
     const gData = buildGraph(gAttestations.value!);
     const isOpen = ref(false);
     const selectedCard = ref<ICard | null>(null);
+    const spriteCache = await initSprites(gAccounts.value!);
+
+    const handleNodeClick = (node: any) => {
+      const nodeData = gAccounts.value!.get(node.id);
+      if (!nodeData) {
+        return;
+      }
+
+      selectedCard!.value = nodeData;
+      isOpen.value = true;
+      gSelectedNode.value = node;
+
+      const distance = 40;
+      const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+      const newPos =
+        node.x || node.y || node.z
+          ? {
+              x: node.x * distRatio,
+              y: node.y * distRatio,
+              z: node.z * distRatio,
+            }
+          : { x: 0, y: 0, z: distance };
+
+      g.value?.cameraPosition(newPos, node, 3000);
+    };
+
+    watch(
+      () => gSelectedNode.value,
+      (newValue) => {
+        if (newValue) {
+          const node = gData.nodes.find((node) => node.id === newValue);
+          if (node) {
+            handleNodeClick(node);
+          }
+        }
+      },
+    );
+
+    return {
+      handleNodeClick,
+      spriteCache,
+      isOpen,
+      selectedCard,
+      gData,
+      g,
+    };
+  },
+  mounted() {
+    this.g = ForceGraph3D()(this.$refs.graph as HTMLElement);
+    const highlightLinks = ref(new Set());
+    const highlightNodes = ref(new Set());
+
+    function updateHighlight(g: ForceGraph3DInstance) {
+      g.nodeColor(g.nodeColor())
+        .linkWidth(g?.linkWidth())
+        .linkDirectionalParticles(g?.linkDirectionalParticles());
+    }
 
     const handleNodeClick = (node: any) => {
       const nodeData = gAccounts.value!.get(node.id);
@@ -56,36 +114,17 @@ export default {
     );
 
     const getSprite = (node: any) => {
-      let sprite = gSpriteCache.value.get(node.id);
+      let sprite = this.spriteCache.get(node.id);
       if (!sprite) {
         const data = makeBlockie(node.id);
         const texture = new THREE.TextureLoader().load(data);
         const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
         sprite = new THREE.Sprite(spriteMaterial);
         sprite.scale.set(8, 8, 0);
-        gSpriteCache.value.set(node.id, sprite);
+        this.spriteCache.set(node.id, sprite);
       }
-      return sprite as unknown as THREE.Object3D;
+      return sprite;
     };
-    return {
-      handleNodeClick,
-      getSprite,
-      isOpen,
-      selectedCard,
-      gData,
-      g,
-    };
-  },
-  mounted() {
-    this.g = ForceGraph3D()(this.$refs.graph as HTMLElement);
-    const highlightLinks = ref(new Set());
-    const highlightNodes = ref(new Set());
-
-    function updateHighlight(g: ForceGraph3DInstance) {
-      g.nodeColor(g.nodeColor())
-        .linkWidth(g?.linkWidth())
-        .linkDirectionalParticles(g?.linkDirectionalParticles());
-    }
 
     const handleNodeHover = (g: ForceGraph3DInstance, node: any) => {
       highlightNodes.value.clear();
@@ -138,7 +177,7 @@ export default {
     this.g?.linkColor((link) =>
       highlightLinks.value.has(link) ? "red" : "lightblue",
     );
-    this.g?.nodeThreeObject((node: any) => this.getSprite(node));
+    this.g?.nodeThreeObject((node: any) => getSprite(node));
     this.g?.onNodeClick(this.handleNodeClick);
     this.g?.onNodeHover((node: any) => handleNodeHover(this.g!, node));
   },

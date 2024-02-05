@@ -37,9 +37,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      PUBLIC_OPENSEA_API: process.env.NUXT_PUBLIC_OPENSEA_API || "No-API",
-      PUBLIC_INFURA_URL: process.env.NUXT_PUBLIC_INFURA_URL || "No-URL",
-      PUBLIC_INFURA_API: process.env.NUXT_PUBLIC_INFURA_API || "No-API",
+      PUBLIC_OPENSEA_API: process.env.NUXT_PUBLIC_OPENSEA_API || "",
+      PUBLIC_INFURA_URL: process.env.NUXT_PUBLIC_INFURA_URL || "",
+      PUBLIC_INFURA_API: process.env.NUXT_PUBLIC_INFURA_API || "",
     },
   },
   security: {
